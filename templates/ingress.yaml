@@ -1,12 +1,32 @@
+{{- if .Values.ingress.enabled -}}
+{{- $serviceName :=  . -}}
+{{- $servicePort := .Values.service.externalPort -}}
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: flask-ingress
+  name: 
   labels:
-    app: flask-ingress
+    app: 
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
   annotations:
-    http.port: "5000"
+    {{- range $key, $value := .Values.ingress.annotations }}
+      {{ $key }}: {{ $value | quote }}
+    {{- end }}
 spec:
-  backend:
-    serviceName: flask-service
-    servicePort: 5000
+  rules:
+    {{- range $host := .Values.ingress.hosts }}
+    - host: {{ $host }}
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: {{ $serviceName }}
+              servicePort: {{ $servicePort }}
+    {{- end -}}
+  {{- if .Values.ingress.tls }}
+  tls:
+{{ toYaml .Values.ingress.tls | indent 4 }}
+  {{- end -}}
+{{- end -}}

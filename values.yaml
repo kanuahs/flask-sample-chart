@@ -1,0 +1,6 @@
+replicaCount: 4
+
+service:
+  type: LoadBalancer
+  internalPort: 5000
+  externalPort: 5000
