@@ -1,0 +1,16 @@
+
+image: kanuahs93/pythontest:ip
+replicaCount: 4
+
+service:
+  portName: flask-port
+  type: LoadBalancer
+  internalPort: 5000
+  externalPort: 5000
+
+ingress:
+  enabled: True
+  annotations:
+    http.port: "5000"
+  hosts: 
+    - testhost
