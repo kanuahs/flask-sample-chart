@@ -1,12 +1,12 @@
 {{- if .Values.ingress.enabled -}}
-{{- $serviceName :=  . -}}
+{{- $serviceName :=  printf "%s-%s-service" .Release.Name .Chart.Name | trunc 63 | trimSuffix "-" -}}
 {{- $servicePort := .Values.service.externalPort -}}
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: 
+  name:  {{ $serviceName }}
   labels:
-    app: 
+    app:  {{ $serviceName }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
     release: "{{ .Release.Name }}"
     heritage: "{{ .Release.Service }}"

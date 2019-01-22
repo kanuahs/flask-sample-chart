@@ -9,7 +9,7 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ $fullname }}
+        app: {{ $fullname }}-deployment
     spec:
       containers:
       - name: {{ .Chart.Name }}
