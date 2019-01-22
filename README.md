@@ -15,7 +15,7 @@ helm status test1
 ```
 * go to "testhost" in browser
 # Note
-* Ingress with minikube
+* To enable ingress with minikube
 ```
 minikube addons enable ingress
 ```
