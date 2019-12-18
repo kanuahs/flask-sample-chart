@@ -1,6 +1,6 @@
 
 image: kanuahs93/flask-sample-app
-replicaCount: 2
+replicaCount: 10
 
 service:
   portName: flask-port
